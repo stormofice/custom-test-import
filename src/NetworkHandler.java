@@ -11,8 +11,8 @@ import java.util.List;
 
 public class NetworkHandler {
 
-    private final String BASE_URL = "[]";
-    private final String EXERCISES_URL = "[]";
+    private final String BASE_URL = "https://raw.githubusercontent.com/stormofice/aud-custom-tests/main/uebungX/YCustomTest.java";
+    private final String EXERCISES_URL = "https://raw.githubusercontent.com/stormofice/aud-custom-tests/main/exercises.cti";
 
     private List<String> exercises;
 

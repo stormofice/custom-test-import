@@ -58,6 +58,7 @@ public class MainFrame extends JFrame {
 
         JMenuItem aboutItem = new JMenuItem("About");
         aboutItem.addActionListener(e -> {
+            new AboutDialog();
         });
         aboutItem.setFont(new Font("Courier New", Font.PLAIN, 14));
         mainMenu.add(aboutItem);
