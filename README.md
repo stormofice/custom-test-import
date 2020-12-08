@@ -4,7 +4,7 @@ This repository contains a tool to import custom tests from [aud-custom-tests](h
 
 ---
 ## Usage
-Download the .jar and execute it
+Take a look at the releases for the .jar.
 
 ## Configuration
 * Configuration
