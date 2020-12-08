@@ -3,6 +3,9 @@
 This repository contains a tool to import custom tests from [aud-custom-tests](https://github.com/stormofice/aud-custom-tests) without any effort.
 
 ---
+## Usage
+Download the .jar and execute it
+
 ## Configuration
 * Configuration
   * BASE_FOLDER
