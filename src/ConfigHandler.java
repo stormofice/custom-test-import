@@ -26,6 +26,7 @@ public class ConfigHandler {
             try {
                 FileReader propReader = new FileReader(configFile);
                 configProperties.load(propReader);
+                Main.INSTANCE.firstStart = false;
             } catch (Exception e) {
                 System.err.println("couldn't read config file");
                 e.printStackTrace();
@@ -33,8 +34,6 @@ public class ConfigHandler {
         } else {
             try {
                 configFile.createNewFile();
-                setImportType(ImportType.SEARCH_MAIN_FILE);
-                setBaseFolder(new File(""));
             } catch (IOException e) {
                 System.err.println("couldn't create config file");
                 e.printStackTrace();

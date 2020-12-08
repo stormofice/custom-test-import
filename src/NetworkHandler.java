@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -24,6 +27,24 @@ public class NetworkHandler {
         String[] split = content.split("\n");
         exercises = Arrays.asList(split);
         return exercises;
+    }
+
+    public File downloadExercise(String exercise) {
+        String[] split = exercise.split("/");
+        File temp = new File(System.getProperty("java.io.tmpdir") + File.separator + split[1] + "CustomTest.java");
+        try {
+            if (!temp.exists()) {
+                temp.createNewFile();
+            }
+            FileWriter fw = new FileWriter(temp, false);
+            String content = getWebsiteContentByURL(BASE_URL.replace("X", split[0]).replace("Y", split[1]));
+            fw.write(content);
+            fw.close();
+            System.out.println("Successfully downloaded exercise " + temp.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return temp;
     }
 
     private String getWebsiteContentByURL(String url) {

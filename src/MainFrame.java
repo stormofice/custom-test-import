@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.io.File;
 import javax.swing.border.LineBorder;
 
 public class MainFrame extends JFrame {
@@ -44,7 +45,7 @@ public class MainFrame extends JFrame {
 
         JMenuItem setConfigItem = new JMenuItem("Set config");
         setConfigItem.addActionListener(e -> {
-            new ConfigDialog();
+            new ConfigDialog(false);
         });
         setConfigItem.setFont(new Font("Courier New", Font.PLAIN, 14));
         mainMenu.add(setConfigItem);
@@ -72,11 +73,6 @@ public class MainFrame extends JFrame {
         contentPane.add(panel, BorderLayout.SOUTH);
         panel.setLayout(new BorderLayout(0, 0));
 
-        JButton importButton = new JButton("Import");
-        importButton.addActionListener(e -> {
-        });
-        importButton.setFont(new Font("Courier New", Font.PLAIN, 14));
-        panel.add(importButton, BorderLayout.EAST);
 
         JButton refreshButton = new JButton("Refresh");
         refreshButton.addActionListener(e -> {
@@ -88,11 +84,25 @@ public class MainFrame extends JFrame {
         refreshButton.setFont(new Font("Courier New", Font.PLAIN, 14));
         panel.add(refreshButton, BorderLayout.WEST);
 
+        JLabel statusLabel = new JLabel("Status");
+        statusLabel.setFont(new Font("Courier New", Font.PLAIN, 14));
+        statusLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(statusLabel, BorderLayout.CENTER);
+
         JList list = new JList(dlm);
-        list.setFont(new Font("Courier New", Font.PLAIN, 14));
+        list.setFont(new Font("Courier New", Font.PLAIN, 18));
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentPane.add(list, BorderLayout.CENTER);
-
+        JButton importButton = new JButton("Import");
+        importButton.addActionListener(e -> {
+            if (list.getSelectedIndex() != -1) {
+                File out = Main.INSTANCE.networkHandler.downloadExercise(dlm.getElementAt(list.getSelectedIndex()));
+                Main.INSTANCE.importHandler.importCustomTest(out);
+                statusLabel.setText("[Y] " + out.getName());
+            }
+        });
+        importButton.setFont(new Font("Courier New", Font.PLAIN, 14));
+        panel.add(importButton, BorderLayout.EAST);
         dlm.clear();
         for (String s : Main.INSTANCE.networkHandler.refresh()) {
             dlm.addElement(s);

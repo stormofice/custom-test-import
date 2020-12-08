@@ -17,6 +17,8 @@ public class ImportHandler {
 
     public void importCustomTest(File customTest) {
 
+        baseFolder = Main.INSTANCE.configHandler.getBaseFolder();
+        importType = Main.INSTANCE.configHandler.getImportType();
 
         if (baseFolder == null) {
             throw new IllegalArgumentException("Base folder must not be null");
@@ -56,7 +58,6 @@ public class ImportHandler {
             if (result == null || result.size() != 1) {
                 throw new IllegalArgumentException("No according public test found");
             }
-
             File parent = result.get(0).toFile().getParentFile();
             copyFile(customTest.toPath(), new File(parent.getPath() + File.separator + customTest.getName()).toPath());
         }

@@ -7,8 +7,14 @@ public class ConfigDialog extends JDialog {
     private static final long serialVersionUID = -4904339877368892275L;
     private final JPanel contentPanel = new JPanel();
 
-    public ConfigDialog() {
+    public ConfigDialog(boolean fS) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.err.println("Couldn't set system look&feel, fallback");
+        }
         setTitle("Config");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setBounds(100, 100, 324, 220);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,7 +65,8 @@ public class ConfigDialog extends JDialog {
             dispose();
         });
         cancelButton.setActionCommand("Cancel");
-        buttonPane.add(cancelButton);
+        if (!fS)
+            buttonPane.add(cancelButton);
         getRootPane().setDefaultButton(cancelButton);
 
         JButton saveButton = new JButton("Save");
@@ -67,6 +74,8 @@ public class ConfigDialog extends JDialog {
         saveButton.addActionListener(e -> {
             Main.INSTANCE.configHandler.save();
             dispose();
+            if (fS)
+                Main.INSTANCE.mainFrame = new MainFrame();
         });
         saveButton.setActionCommand("Save");
         buttonPane.add(saveButton);

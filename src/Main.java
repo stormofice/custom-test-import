@@ -6,8 +6,9 @@ public class Main {
 
     public ConfigHandler configHandler;
     public NetworkHandler networkHandler;
-    private ImportHandler importHandler;
-    private MainFrame mainFrame;
+    public ImportHandler importHandler;
+    public boolean firstStart = true;
+    public MainFrame mainFrame;
 
     public static void main(String[] args) {
         INSTANCE.init();
@@ -18,8 +19,6 @@ public class Main {
         configHandler = new ConfigHandler();
 
         importHandler = new ImportHandler();
-        importHandler.setBaseFolder(configHandler.getBaseFolder());
-        importHandler.setImportType(configHandler.getImportType());
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configHandler.save();
@@ -27,7 +26,12 @@ public class Main {
 
         networkHandler = new NetworkHandler();
 
-        mainFrame = new MainFrame();
+        if (firstStart) {
+            configHandler.setImportType(ImportType.SEARCH_MAIN_FILE);
+            configHandler.setBaseFolder(new File("."));
+            new ConfigDialog(firstStart);
+        } else
+            mainFrame = new MainFrame();
 
     }
 
