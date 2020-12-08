@@ -1,0 +1,3 @@
+public enum ImportType {
+    BASE_FOLDER, SEARCH_PUBLIC_TEST, SEARCH_MAIN_FILE
+}
