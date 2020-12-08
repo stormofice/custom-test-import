@@ -5,6 +5,7 @@ public class Main {
     public static final Main INSTANCE = new Main();
 
     public ConfigHandler configHandler;
+    public NetworkHandler networkHandler;
     private ImportHandler importHandler;
     private MainFrame mainFrame;
 
@@ -24,8 +25,9 @@ public class Main {
             configHandler.save();
         }));
 
+        networkHandler = new NetworkHandler();
+
         mainFrame = new MainFrame();
-        mainFrame.setVisible(true);
 
     }
 

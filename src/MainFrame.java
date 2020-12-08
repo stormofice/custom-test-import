@@ -16,6 +16,8 @@ public class MainFrame extends JFrame {
     private static final long serialVersionUID = -8424734531682214227L;
     private JPanel contentPane;
 
+    private DefaultListModel<String> dlm;
+
     public MainFrame() {
 
         try {
@@ -23,6 +25,8 @@ public class MainFrame extends JFrame {
         } catch (Exception e) {
             System.err.println("Couldn't set system look&feel, fallback");
         }
+
+        dlm = new DefaultListModel<>();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 350, 600);
@@ -76,14 +80,26 @@ public class MainFrame extends JFrame {
 
         JButton refreshButton = new JButton("Refresh");
         refreshButton.addActionListener(e -> {
+            dlm.clear();
+            for (String s : Main.INSTANCE.networkHandler.refresh()) {
+                dlm.addElement(s);
+            }
         });
         refreshButton.setFont(new Font("Courier New", Font.PLAIN, 14));
         panel.add(refreshButton, BorderLayout.WEST);
 
-        JList list = new JList();
+        JList list = new JList(dlm);
         list.setFont(new Font("Courier New", Font.PLAIN, 14));
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         contentPane.add(list, BorderLayout.CENTER);
+
+        dlm.clear();
+        for (String s : Main.INSTANCE.networkHandler.refresh()) {
+            dlm.addElement(s);
+        }
+
+        setVisible(true);
+
     }
 
 }
