@@ -4,8 +4,9 @@ public class Main {
 
     public static final Main INSTANCE = new Main();
 
-    private ConfigHandler configHandler;
+    public ConfigHandler configHandler;
     private ImportHandler importHandler;
+    private MainFrame mainFrame;
 
     public static void main(String[] args) {
         INSTANCE.init();
@@ -22,6 +23,9 @@ public class Main {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configHandler.save();
         }));
+
+        mainFrame = new MainFrame();
+        mainFrame.setVisible(true);
 
     }
 
