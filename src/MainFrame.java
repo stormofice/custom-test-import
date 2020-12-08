@@ -75,15 +75,16 @@ public class MainFrame extends JFrame {
         panel.setLayout(new BorderLayout(0, 0));
 
 
-        JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> {
-            dlm.clear();
-            for (String s : Main.INSTANCE.networkHandler.refresh()) {
-                dlm.addElement(s);
-            }
-        });
-        refreshButton.setFont(new Font("Courier New", Font.PLAIN, 14));
-        panel.add(refreshButton, BorderLayout.WEST);
+//        JButton refreshButton = new JButton("Refresh");
+//        refreshButton.addActionListener(e -> {
+//            dlm.clear();
+//            for (String s : Main.INSTANCE.networkHandler.refresh()) {
+//                dlm.addElement(s);
+//            }
+//            refreshButton.setEnabled(false);
+//        });
+//        refreshButton.setFont(new Font("Courier New", Font.PLAIN, 14));
+//        panel.add(refreshButton, BorderLayout.WEST);
 
         JLabel statusLabel = new JLabel("Status");
         statusLabel.setFont(new Font("Courier New", Font.PLAIN, 14));
